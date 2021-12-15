@@ -4,7 +4,7 @@ import glob
 import argparse
 class Findlang:
     
-    def __init__(self, k, alpha):
+    def __init__(self, train, k, alpha):
         self.k = k
         self.alpha = alpha
         self.languages = {
@@ -12,12 +12,13 @@ class Findlang:
                             'pt_pt.utf8': 'Portuguese',
                             'spanish.utf8': 'Spanish'
                         }
+        self.train = train
 
     def find(self, target):
 
-        files = glob.glob("../langs/train/*")
+        files = glob.glob(f"{self.train}*")
         bits = []
-        for f in files[:5]:
+        for f in files:
             en = Fcm(f , self.k, self.alpha, 0)
             l = Lang(en)
             bits.append(l.compare_files(target)[0])
@@ -33,14 +34,21 @@ class Findlang:
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description='Process some integers.')
+    # python3 findlang.py -r "../langs/train/" -t "../langs/test/test_english.utf8"
 
-    parser.add_argument("--testfile", metavar="file", type=str, default="../langs/test/test_english.utf8")
+    parser = argparse.ArgumentParser(description='Lang')
+    parser.add_argument("-r","--reference", type=str, required=True)
+    parser.add_argument("-t,","--target", type=str, default="../langs/test/test_english.utf8")
+    parser.add_argument('-k', type=int,
+                    help='size of the sequence', default=1)
+    parser.add_argument('-a', '--alpha', type=float, default=0.01,
+                    help='alpha parameter')
 
     args = vars(parser.parse_args())
 
-    f = Findlang(3, 0.000001)
+    train_folder = args["reference"]
 
-    language = f.find(args["testfile"])
+    f = Findlang(train_folder, args["k"], args["alpha"])
+    language = f.find(args["target"])
 
     print("The selected text is predicted to have the " + language + " language.")

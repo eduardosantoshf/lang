@@ -2,7 +2,6 @@ from fcm import Fcm
 import math
 import argparse
 
-
 class Lang:
 
     def __init__(self, fcm):
@@ -47,25 +46,23 @@ class Lang:
 
 
 if __name__ == "__main__":
-
-    parser = argparse.ArgumentParser(description='Process some integers.')
-
-    parser.add_argument("--repfile", metavar="file", type=str, default="../langs/test/test_english.utf8")
-    parser.add_argument("--testfile", metavar="file", type=str, default="../langs/test/test_english.utf8")
-    parser.add_argument('-a', '--alpha', type=float, default=0.000000000001, help='alpha parameter')
+    # python3 lang.py -r "../langs/train/eng.utf8" -t "../langs/test/test_english.utf8"
+    parser = argparse.ArgumentParser(description='Lang')
+    parser.add_argument("-r","--reference", type=str, default="../langs/train/eng.utf8")
+    parser.add_argument("-t,","--target", type=str, default="../langs/test/test_english.utf8")
+    parser.add_argument('-k', type=int,
+                    help='size of the sequence', default=1)
+    parser.add_argument('-a', '--alpha', type=float, default=0.01,
+                    help='alpha parameter')
 
     args = vars(parser.parse_args())
-
-
-    en = Fcm(args["repfile"] , 3, args["alpha"], 0)
-
-    print("Total Entropy: ", en.calculate_global_entropy() * (en.total_counter + en.k))
-    print("Mean Entropy: ", en.calculate_global_entropy())
-
-    print("numero de cenas ", en.total_counter + en.k)
-
+    
+    target = args["target"]
+    reference = args["reference"]
+    
+    en = Fcm(reference, args["k"], args["alpha"], 0)
+    print("maximum entropy: ", en.calculate_global_entropy()*(en.total_counter + en.k))
+    print("average entropy: ", en.calculate_global_entropy())
+    print("text size: ", en.total_counter + en.k)
     l = Lang(en)
-
-    print("Number of bits: ", l.compare_files(args["testfile"])[0])
-
-
+    print("number of bits to encode: ",l.compare_files(target)[0])
