@@ -1,6 +1,7 @@
 from fcm import Fcm
 from lang import Lang
 import glob
+import argparse
 
 
 class Findlang:
@@ -26,5 +27,12 @@ class Findlang:
 
 if __name__ == "__main__":
 
+    parser = argparse.ArgumentParser(description='Process some integers.')
+
+    parser.add_argument("--testfile", metavar="file", type=str, default="../langs/test/test_english.utf8")
+
+    args = vars(parser.parse_args())
+
     f = Findlang(3, 0.000001)
-    f.find("../langs/test/eng_AU.latn.Aboriginal_English.comb-test.utf8")
+    
+    f.find(args["testfile"])

@@ -50,7 +50,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='Process some integers.')
 
-    parser.add_argument("--repfile", metavar="file", type=str, default="../langs/train/eng.utf8")
+    parser.add_argument("--repfile", metavar="file", type=str, default="../langs/test/test_english.utf8")
     parser.add_argument("--testfile", metavar="file", type=str, default="../langs/test/test_english.utf8")
     parser.add_argument('-a', '--alpha', type=float, default=0.000000000001, help='alpha parameter')
 
