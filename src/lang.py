@@ -1,5 +1,7 @@
 from fcm import Fcm
 import math
+import argparse
+
 
 
 class Lang:
@@ -45,11 +47,25 @@ class Lang:
 
 
 if __name__ == "__main__":
-    en = Fcm("../langs/test/eng_AU.latn.Aboriginal_English.comb-test.utf8" , 3, 0.000000000001, 0)
-    print("entropia total ", en.calculate_global_entropy()*(en.total_counter + en.k))
-    print("entropia media ", en.calculate_global_entropy())
-    print("numero de cenas ", en.total_counter + en.k)
+    # python3 lang.py -r "../langs/train/eng.utf8" -t "../langs/test/test_english.utf8"
+    parser = argparse.ArgumentParser(description='Lang')
+    parser.add_argument("-r","--reference", type=str, required=True)
+    parser.add_argument("-t,","--target", type=str, required=True)
+    parser.add_argument('-k', type=int,
+                    help='size of the sequence', default=1)
+    parser.add_argument('-a', '--alpha', type=float, default=0.01,
+                    help='alpha parameter')
+
+    args = vars(parser.parse_args())
+    
+    target = args["target"]
+    reference = args["reference"]
+    
+    en = Fcm(reference, args["k"], args["alpha"], 0)
+    print("maximum entropy: ", en.calculate_global_entropy()*(en.total_counter + en.k))
+    print("average entropy: ", en.calculate_global_entropy())
+    print("text size: ", en.total_counter + en.k)
     l = Lang(en)
-    print("qualquer coisa ",l.compare_files("../langs/test/eng_AU.latn.Aboriginal_English.comb-test.utf8")[0])
+    print("number of bits to encode: ",l.compare_files(target)[0])
 
 
