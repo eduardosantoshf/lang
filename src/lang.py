@@ -6,13 +6,15 @@ class Lang:
 
     def __init__(self, fcm):
         self.fcm = fcm
+        self.alphabet = set()
+        self.alphabet_size = 0
 
     def compare_files(self, filename):
         
-        alphabet = set()
+        # calculate alphabet size
         with open(filename, "r") as f:
-            alphabet = set(f.read())
-        alphabet_size = len(set(self.fcm.alphabet) | alphabet)
+            self.alphabet = set(f.read())
+        self.alphabet_size = len(set(self.fcm.alphabet) | self.alphabet)
         
 
         with open(filename, "r") as f:
@@ -24,7 +26,7 @@ class Lang:
             while (next_char := f.read(1)):
             
                 if context in self.fcm.filled_table:
-                    row_sum = self.fcm.filled_table[context]["sum"] + self.fcm.alpha * alphabet_size
+                    row_sum = self.fcm.filled_table[context]["sum"] + self.fcm.alpha * self.alphabet_size
                     if next_char not in self.fcm.filled_table[context]:
                         prob = (self.fcm.alpha) / row_sum
                     else:
@@ -32,12 +34,12 @@ class Lang:
                     
                     #context_prob = (self.fcm.filled_table[context]["sum"] + self.fcm.alpha * alphabet_size) / table_total
                     stream.append(- math.log2(prob))
-                    total_bits +=  - math.log2(prob)
+                    total_bits -= math.log2(prob)
                 
                 else:    
-                    row_sum = self.fcm.alpha * alphabet_size
-                    total_bits +=  -math.log2(self.fcm.alpha / row_sum)
-                    stream.append(-math.log2(self.fcm.alpha / row_sum))
+                    row_sum = self.fcm.alpha * self.alphabet_size
+                    total_bits -= math.log2(self.fcm.alpha / row_sum)
+                    stream.append(- math.log2(self.fcm.alpha / row_sum))
                     
                 context = context[1:] + next_char
 
