@@ -2,13 +2,16 @@ from fcm import Fcm
 from lang import Lang
 import glob
 import argparse
-
-
 class Findlang:
     
     def __init__(self, train, k, alpha):
         self.k = k
         self.alpha = alpha
+        self.languages = {
+                            'eng.utf8': 'English',
+                            'pt_pt.utf8': 'Portuguese',
+                            'spanish.utf8': 'Spanish'
+                        }
         self.train = train
 
     def find(self, target):
@@ -21,9 +24,12 @@ class Findlang:
             bits.append(l.compare_files(target)[0])
 
         lang = files[bits.index(min(bits))] 
-        print(lang)
+
+        lang_name = self.languages[lang.rsplit("/", 1)[1]]
+
+
         # returns the name of the file that has the lower number of needed bytes to encode
-        return lang   
+        return lang_name
 
 
 if __name__ == "__main__":
@@ -43,4 +49,6 @@ if __name__ == "__main__":
     train_folder = args["reference"]
 
     f = Findlang(train_folder, args["k"], args["alpha"])
-    f.find(args["target"])
+    language = f.find(args["target"])
+
+    print("The selected text is predicted to have the " + language + " language.")
