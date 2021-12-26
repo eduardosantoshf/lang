@@ -13,20 +13,23 @@ class Findlang:
                             'spanish.utf8': 'Spanish'
                         }
         self.train = train
+        self.bits = []
 
     def find(self, target):
 
         files = glob.glob(f"{self.train}*")
-        bits = []
+
+        # for each of the languages calculate the number of bits
         for f in files:
             en = Fcm(f , self.k, self.alpha, 0)
             l = Lang(en)
-            bits.append(l.compare_files(target)[0])
+            total_bits = l.compare_files(target)[0]
+            self.bits.append(total_bits)
 
-        lang = files[bits.index(min(bits))] 
+        # get the lower amount of bits
+        lang = files[self.bits.index(min(self.bits))] 
 
         lang_name = self.languages[lang.rsplit("/", 1)[1]]
-
 
         # returns the name of the file that has the lower number of needed bytes to encode
         return lang_name
