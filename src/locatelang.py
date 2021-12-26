@@ -19,7 +19,7 @@ class LocateLang:
 
         positions = {}    # {Lang : Positions[]}
         files = glob.glob(f"{self.train_folder}*")
-        files = ["../langs/train/pt_pt.utf8", "../langs/train/ita.utf8", "../langs/train/spanish.utf8", "../langs/train/eng.utf8"]
+        #files = ["../langs/train/pt_pt.utf8", "../langs/train/ita.utf8", "../langs/train/spanish.utf8", "../langs/train/eng.utf8"]
         # TODO: use all files
         for f in files:
             print(f)
