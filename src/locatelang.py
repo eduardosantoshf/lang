@@ -19,10 +19,10 @@ class LocateLang:
 
         positions = {}    # {Lang : Positions[]}
         files = glob.glob(f"{self.train_folder}*")
-        #files = ["../langs/train/pt_pt.utf8", "../langs/train/ita.utf8", "../langs/train/spanish.utf8", "../langs/train/eng.utf8"]
+        files = ["../langs/train/portuguese.utf8", "../langs/train/italian.utf8", "../langs/train/spanish.utf8", "../langs/train/english.utf8", "../langs/train/french.utf8"]
         # TODO: use all files
         for f in files:
-            print(f)
+            print(f)    
             streams = []
             entropies = []
             for order in orders:

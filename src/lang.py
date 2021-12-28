@@ -63,8 +63,11 @@ if __name__ == "__main__":
     reference = args["reference"]
     
     en = Fcm(reference, args["k"], args["alpha"], 0)
-    print("maximum entropy: ", en.calculate_global_entropy()*(en.total_counter + en.k))
-    print("average entropy: ", en.calculate_global_entropy())
-    print("text size: ", en.total_counter + en.k)
+    print(f"Average entropy: {en.calculate_global_entropy():.3f}")
+    print("Reference Text size: ", en.total_counter + en.k)
+    print(f"Total average entropy: {en.calculate_global_entropy()*(en.total_counter + en.k):.3f}")
     l = Lang(en)
-    print("number of bits to encode: ",l.compare_files(target)[0])
+    total_bits, stream = l.compare_files(target)
+    print(f"Average bits to encode: {total_bits/(len(stream) + en.k):.3f}")
+    print(f"Target Text Size: {len(stream) + en.k}")
+    print(f"Number of bits to encode: {total_bits:.3f}")

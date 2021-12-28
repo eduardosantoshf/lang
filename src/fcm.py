@@ -19,9 +19,9 @@ class Fcm:
         self.is_hash = False
         self.total_counter = 0
         # fill table with number of occurences
-        start = time.time()
+        #start = time.time()
         self.filled_table = self.fill_table(self.init_table())
-        print("Table created in ", str(time.time() - start), "secs...")
+        #print("Table created in ", str(time.time() - start), "secs...")
         # final entropy variable
         # all probabilities
 
@@ -37,9 +37,9 @@ class Fcm:
         if space >= self.threshold:
             self.is_hash = True
             table = {}
-            print("Creating hash table...")
+            #print("Creating hash table...")
         else:
-            print("Creating table of size ", space, "MB...")
+            #print("Creating table of size ", space, "MB...")
             self.is_hash = False
             table = [[0] * (self.alphabet_size + 1) for _ in range(self.alphabet_size ** self.k)]
         return table
