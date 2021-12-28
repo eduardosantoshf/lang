@@ -1,5 +1,11 @@
 # TAI - Second Assignment
 
+## Authors
+
+* [Bruno Bastos](https://github.com/BrunosBastos) - 93302
+* [Eduardo Santos](https://github.com/eduardosantoshf) - 93107
+* [Pedro bastos](https://github.com/bastos-01) - 93150
+
 ## Structure
 
 ### src/ 
@@ -11,6 +17,10 @@ Contains the source code of the project. To make sure nothing fails while runing
 ### langs/
 
 Contains the texts used in the programs. The folder `train/` has the reference texts and the folder `test/` has the texts to target in our programs.
+
+### report/
+
+Contains the assignment report.
 
 ## How to run
 
