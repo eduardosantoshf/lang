@@ -15,18 +15,16 @@ class LocateLang:
         self.window_size = window_size
         self.noise = noise
         
-    def locate(self, orders, show_entropies=False):
+    def locate(self, orders, alpha, show_entropies=False):
 
         positions = {}    # {Lang : Positions[]}
         files = glob.glob(f"{self.train_folder}*")
-        files = ["../langs/train/portuguese.utf8", "../langs/train/italian.utf8", "../langs/train/spanish.utf8", "../langs/train/english.utf8", "../langs/train/french.utf8"]
-        # TODO: use all files
         for f in files:
             print(f)    
             streams = []
             entropies = []
             for order in orders:
-                fcm = Fcm(f, order, 0.001, 0)
+                fcm = Fcm(f, order, alpha, 0)
                 l = Lang(fcm)
                 _, stream = l.compare_files(self.target)
                 streams.append(stream)
@@ -42,8 +40,6 @@ class LocateLang:
                 self.threshold = self.threshold_type
 
             stream = self._average_stream(streams, orders)
-            if show_entropies:                       
-                utils.add_entropy_to_plot(stream, self.threshold, f.split("/")[-1].split(".")[0])     
             
             initial_pos = 0
             lower = False
@@ -67,6 +63,9 @@ class LocateLang:
                         positions.setdefault(f, [])
                         positions[f].append((initial_pos, b))
                         initial_pos = b + self.window_size            
+            if lower:
+                positions.setdefault(f, [])
+                positions[f].append((initial_pos, b))
         
         return positions       
        
@@ -91,17 +90,17 @@ class LocateLang:
     
 if __name__ == "__main__":
     
-    # python3 locatelang.py -r "../langs/train/" -t "../langs/test/test.txt" -w 3 -o 2 3 4
+    # python3 locatelang.py -r "../langs/train/" -t "../langs/test/test.txt" -w 24 -o 2 --show_langs
 
     parser = argparse.ArgumentParser(description='Lang')
     parser.add_argument("-r","--reference", type=str, required=True)
     parser.add_argument("-t,","--target", type=str, required=True)
     parser.add_argument('-o', "--orders", nargs='+', type=int,
-                    help='size of the sequence', default=[2])
-    parser.add_argument('-a', '--alpha', type=float, default=0.01,
+                    help='size of the sequence', default=[3])
+    parser.add_argument('-a', '--alpha', type=float, default=0.000001,
                     help='alpha parameter')
     parser.add_argument("--threshold", default="entropy")
-    parser.add_argument("-w","--window_size", type=int, default=3)
+    parser.add_argument("-w","--window_size", type=int, default=24)
     parser.add_argument("--noise", type=float, default=1)
     parser.add_argument("--show_langs", action="store_true")
     parser.add_argument("--show_entropies", action="store_true")
@@ -119,9 +118,7 @@ if __name__ == "__main__":
             exit(1)
 
     l = LocateLang(args["reference"], args["target"], threshold, args["window_size"], args["noise"])
-    pos = l.locate(args["orders"], args["show_entropies"])
+    pos = l.locate(args["orders"], args["alpha"])
     
-    if args["show_entropies"]:
-        utils.add_entropy_to_plot(None, None, None, True)
     if args["show_langs"]:
         utils.plot_locations(pos, args["reference"])

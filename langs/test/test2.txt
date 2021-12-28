@@ -1,0 +1,1 @@
+Um simples exemplo de um test case onde temos um texto todo em português mas onde algumas keywords pertecem ao dicionário de inglês. Maybe é possível de ver se o nosso programa consegue detetar estas palavras e as suas posições. Good luck.
