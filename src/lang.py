@@ -48,10 +48,10 @@ class Lang:
 
 
 if __name__ == "__main__":
-    # python3 lang.py -r "../langs/train/eng.utf8" -t "../langs/test/test_english.utf8"
+    # python3 lang.py -r "../langs/train/english.utf8" -t "../langs/test/english.utf8"
     parser = argparse.ArgumentParser(description='Lang')
-    parser.add_argument("-r","--reference", type=str, default="../langs/train/eng.utf8")
-    parser.add_argument("-t,","--target", type=str, default="../langs/test/test_english.utf8")
+    parser.add_argument("-r","--reference", type=str, default="../langs/train/english.utf8")
+    parser.add_argument("-t,","--target", type=str, default="../langs/test/english.utf8")
     parser.add_argument('-k', type=int,
                     help='size of the sequence', default=1)
     parser.add_argument('-a', '--alpha', type=float, default=0.01,

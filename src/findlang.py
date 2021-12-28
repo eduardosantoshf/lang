@@ -55,11 +55,11 @@ class Findlang:
             
 if __name__ == "__main__":
 
-    # python3 findlang.py -r "../langs/train/" -t "../langs/test/test_english.utf8"
+    # python3 findlang.py -r "../langs/train/" -t "../langs/test/english.utf8"
 
     parser = argparse.ArgumentParser(description='Lang')
     parser.add_argument("-r","--reference", type=str, required=True)
-    parser.add_argument("-t,","--target", type=str, default="../langs/test/test_english.utf8")
+    parser.add_argument("-t,","--target", type=str, default="../langs/test/english.utf8")
     parser.add_argument('-k', type=int,
                     help='size of the sequence', default=1)
     parser.add_argument('-a', '--alpha', type=float, default=0.01,
