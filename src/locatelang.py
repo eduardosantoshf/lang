@@ -103,7 +103,6 @@ if __name__ == "__main__":
     parser.add_argument("-w","--window_size", type=int, default=24)
     parser.add_argument("--noise", type=float, default=1)
     parser.add_argument("--show_langs", action="store_true")
-    parser.add_argument("--show_entropies", action="store_true")
     
 
     args = vars(parser.parse_args())

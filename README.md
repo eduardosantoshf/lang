@@ -54,7 +54,7 @@ Usage example:
 
 <img src="img/locatelang.png"  width="100%">
 
-Reference and target options are required. You can also change the `orders` (k values), `alpha`, `threshold` (can be either 'mean', 'max', 'entropy' or a float value), `window size` and `noise reduction`. `show_langs` and `show_entropies` are optional parameters to plot the graphics. 
+Reference and target options are required. You can also change the `orders` (k values), `alpha`, `threshold` (can be either 'mean', 'max', 'entropy' or a float value), `window size` and `noise reduction`. `show_langs` is an optional parameter to plot the graphic. 
 
 
 
