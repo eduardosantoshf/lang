@@ -23,5 +23,5 @@ def chart_average_bits_compare(target, reference, ks, alphas):
     
 
 
-chart_average_bits_compare("../langs/test/test_pt_br.utf8", "../langs/train/pt_pt.utf8", [2,3,4,5,6], [0.0001])
+chart_average_bits_compare("../langs/test/portuguese.utf8", "../langs/train/portuguese.utf8", [2,3,4,5,6], [0.0001])
 
