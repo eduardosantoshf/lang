@@ -1,4 +1,8 @@
-# TAI - Second Assignment
+# TAI Second Assignment
+
+Identifying the language a text is written on, is a problem that has been having attention for a while. Many approaches try to extract features from the text and then use them to identify the correspondent language. However, this problem can be seen as a special form of lossy data compression, allowing the use of compress algorithms to measure the similarity between texts.
+
+The objective of this work was to approach the problem of determining the ”similarity” between a target text, t, and some reference texts, ri.
 
 ## Authors
 
