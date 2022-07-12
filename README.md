@@ -4,6 +4,9 @@ Identifying the language a text is written on, is a problem that has been having
 
 The objective of this work was to approach the problem of determining the ”similarity” between a target text, t, and some reference texts, ri.
 
+## Course
+This project was developed under the [Algorithmic Theory of Information](https://www.ua.pt/en/uc/13643) course of [University of Aveiro](https://www.ua.pt/).
+
 ## Authors
 
 * [Bruno Bastos](https://github.com/BrunosBastos) - 93302
